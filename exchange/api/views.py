@@ -23,12 +23,12 @@ class ModuleView(APIView):
             return Response({'Module Not Found':'Invalid Module Code.'}, status=status.HTTP_404_NOT_FOUND)
         return Response({'Bad Request': 'module code parameter not found in request'}, status.HTTP_400_BAD_REQUEST)
 
-class UpdateView(APIView):
+class UpdateModel(APIView):
     serializer_class = ModuleSerializer
 
     def get(self, request, format='None'):
 
-        with open('./data.json', 'r') as f:
+        with open('data/data.json', 'r') as f:
             my_json_obj = json.load(f)
 
         for mapping in my_json_obj.values():
