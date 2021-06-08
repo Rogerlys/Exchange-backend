@@ -7,7 +7,7 @@ from rest_framework import status
 from .models import Module
 import json
 from django.http import HttpResponse
-from templates import models.html
+from django.http.response import JsonResponse
 
 # Create your views here.
 class ModuleView(APIView):
@@ -42,9 +42,12 @@ class UpdateView(APIView):
                 model.save()
 
         return Response({'Database updated'}, status=status.HTTP_200_OK)
-def modulePage(*request):
-    modules = Module.objects.all()
-    return HttpResponse("Hello, world. You're at the polls index.")
+def modulePage(request):
+    if request.method == 'GET':
+        modules = Module.objects.all()
+    mod_serializer = ModuleSerializer(modules, many=True)
+
+    return  JsonResponse(mod_serializer.data, safe=False)
         
             
 
