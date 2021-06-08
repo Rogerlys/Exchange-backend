@@ -7,6 +7,7 @@ class Module(models.Model):
     nus_module_credit = models.IntegerField(null=False)
 
 class University(models.Model):
-    partner_univerity = models.CharField(max_length=50, unique=True)
+    partner_university = models.CharField(max_length=100, unique=True, null=False)
     partner_information = models.TextField()
+    partner_country = models.CharField(max_length=20, null=False)
     

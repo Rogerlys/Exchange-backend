@@ -1,10 +1,10 @@
 from django.db.models.query import QuerySet
-from .serializers import ModuleSerializer
+from .serializers import ModuleSerializer, UniversitySerializer
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Module
+from .models import Module, University
 import json
 
 # Create your views here.
@@ -28,7 +28,7 @@ class UpdateModel(APIView):
 
     def get(self, request, format='None'):
 
-        with open('data/data.json', 'r') as f:
+        with open('api/data/data.json', 'r') as f:
             my_json_obj = json.load(f)
 
         for mapping in my_json_obj.values():
@@ -39,6 +39,19 @@ class UpdateModel(APIView):
                 model.nus_module_title = mapping.get('NUS Module 1 Title')
                 model.nus_module_credit = int(float(mapping.get('NUS Mod1 Credits')))
                 model.save()
+
+        with open('api/data/universitydata.json', 'r') as f:
+            my_json_obj = json.load(f)
+
+        for countries in my_json_obj:
+            for entries in my_json_obj[countries]:
+                university = University.objects.filter(partner_university = entries.get('University'))
+                if not university.exists():
+                    model = University()
+                    model.partner_university = entries.get('University')
+                    model.partner_information = entries.get('Link')
+                    model.partner_country = countries
+                    model.save()
 
         return Response({'Database updated'}, status=status.HTTP_200_OK)
         
