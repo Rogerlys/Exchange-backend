@@ -8,5 +8,5 @@ class ModuleSerializer(serializers.ModelSerializer):
 
 class UniversitySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Module
-        fields = ('partner_university', 'partner_information')
+        model = University
+        fields = ('partner_university', 'partner_information', 'partner_country')

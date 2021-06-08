@@ -3,7 +3,7 @@ from .serializers import ModuleSerializer, UniversitySerializer
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, generics
 from .models import Module, University
 import json
 
@@ -22,6 +22,16 @@ class ModuleView(APIView):
 
             return Response({'Module Not Found':'Invalid Module Code.'}, status=status.HTTP_404_NOT_FOUND)
         return Response({'Bad Request': 'module code parameter not found in request'}, status.HTTP_400_BAD_REQUEST)
+
+class UniversityView(generics.ListAPIView):
+    serializer_class = UniversitySerializer
+
+    def get_queryset(self):
+        queryset = University.objects.all()
+        name = self.request.query_params.get('name')
+        if name is not None:
+            queryset = queryset.filter(partner_university = name)
+        return queryset
 
 class UpdateModel(APIView):
     serializer_class = ModuleSerializer
