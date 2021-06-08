@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Module
 import json
+from django.http import HttpResponse
+from templates import models.html
 
 # Create your views here.
 class ModuleView(APIView):
@@ -30,7 +32,6 @@ class UpdateView(APIView):
 
         with open('./data.json', 'r') as f:
             my_json_obj = json.load(f)
-
         for mapping in my_json_obj.values():
             module = Module.objects.filter(nus_module_code = mapping.get('NUS Module 1'))
             if not module.exists():
@@ -41,6 +42,9 @@ class UpdateView(APIView):
                 model.save()
 
         return Response({'Database updated'}, status=status.HTTP_200_OK)
+def modulePage(*request):
+    modules = Module.objects.all()
+    return HttpResponse("Hello, world. You're at the polls index.")
         
             
 
