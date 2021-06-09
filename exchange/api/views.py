@@ -44,9 +44,6 @@ class ModulePage(generics.ListCreateAPIView):
     serializer_class = ModuleSerializer
     def get_queryset(self):
         queryset = Module.objects.all()
-        code = self.request.query_params.get('code')
-        if code is not None:
-            queryset = queryset.filter(nus_module_code = name)
         return queryset
 
 class UpdateModel(APIView):
@@ -80,10 +77,3 @@ class UpdateModel(APIView):
                     model.save()
 
         return Response({'Database updated'}, status=status.HTTP_200_OK)
-        
- 
-
-    
-
-
-    
