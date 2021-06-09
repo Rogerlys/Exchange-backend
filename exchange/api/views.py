@@ -3,6 +3,7 @@ from .serializers import ModuleSerializer, UniversitySerializer
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.renderers import JSONRenderer
 from rest_framework import status, generics
 from .models import Module, University
 import json
@@ -11,6 +12,12 @@ import json
 class ModuleView(APIView):
     serializer_class = ModuleSerializer
     lookup_url_kwarg = 'nus_module_code'
+    renderer_classes = [JSONRenderer]
+
+    def get_renderer_context(self):
+        context = super().get_renderer_context()
+        context['indent'] = 4
+        return context
 
     def get(self, request, format='None'):
         nus_module_code = request.GET.get(self.lookup_url_kwarg)
