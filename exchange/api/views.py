@@ -39,6 +39,8 @@ class UniversityView(generics.ListAPIView):
         if name is not None:
             queryset = queryset.filter(partner_university = name)
         return queryset
+class ModulePage(generics.ListCreateAPIView):
+    serializer_class = ModuleSerializer
 
 class UpdateModel(APIView):
     serializer_class = ModuleSerializer
