@@ -39,8 +39,15 @@ class UniversityView(generics.ListAPIView):
         if name is not None:
             queryset = queryset.filter(partner_university = name)
         return queryset
+        
 class ModulePage(generics.ListCreateAPIView):
     serializer_class = ModuleSerializer
+    def get_queryset(self):
+        queryset = Module.objects.all()
+        code = self.request.query_params.get('code')
+        if code is not None:
+            queryset = queryset.filter(nus_module_code = name)
+        return queryset
 
 class UpdateModel(APIView):
     serializer_class = ModuleSerializer
@@ -74,7 +81,7 @@ class UpdateModel(APIView):
 
         return Response({'Database updated'}, status=status.HTTP_200_OK)
         
-            
+ 
 
     
 
