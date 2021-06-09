@@ -83,9 +83,9 @@ DATABASES = {
 
         'NAME': 'exchange',
 
-        'USER': 'postgres',
+        'USER': 'admin',
 
-        'PASSWORD': 'Pigcle234',
+        'PASSWORD': 'admin',
 
         'HOST': 'localhost',
 
