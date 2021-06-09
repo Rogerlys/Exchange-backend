@@ -8,6 +8,7 @@ from .models import Module
 import json
 from django.http import HttpResponse
 from django.http.response import JsonResponse
+from django import forms
 
 # Create your views here.
 class ModuleView(APIView):
@@ -30,7 +31,7 @@ class UpdateView(APIView):
 
     def get(self, request, format='None'):
 
-        with open('./data.json', 'r') as f:
+        with open('api/data/data.json', 'r') as f:
             my_json_obj = json.load(f)
         for mapping in my_json_obj.values():
             module = Module.objects.filter(nus_module_code = mapping.get('NUS Module 1'))
@@ -39,8 +40,8 @@ class UpdateView(APIView):
                 model.nus_module_code = mapping.get('NUS Module 1')
                 model.nus_module_title = mapping.get('NUS Module 1 Title')
                 model.nus_module_credit = int(float(mapping.get('NUS Mod1 Credits')))
+                model.partner_university = mapping.get('Partner University')
                 model.save()
-
         return Response({'Database updated'}, status=status.HTTP_200_OK)
 def modulePage(request):
     if request.method == 'GET':
@@ -48,10 +49,7 @@ def modulePage(request):
     mod_serializer = ModuleSerializer(modules, many=True)
 
     return  JsonResponse(mod_serializer.data, safe=False)
+
+
+
         
-            
-
-    
-
-
-    
