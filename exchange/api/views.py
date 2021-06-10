@@ -30,6 +30,14 @@ class ModuleView(APIView):
             return Response({'Module Not Found':'Invalid Module Code.'}, status=status.HTTP_404_NOT_FOUND)
         return Response({'Bad Request': 'module code parameter not found in request'}, status.HTTP_400_BAD_REQUEST)
 
+    def post(self, request, format=None):
+        print(request.data)
+        data = [
+    "[{'University': 'Hong Kong University of Science & Technology', 'Total Mappable': 1, 'Country': 'Hong Kong', 'Modules': [{'Module': 'CM1121', 'Title': 'Organic Chemistry 1', 'Credits': '4', 'Partner Modules': [{'Module Code': 'CHEM2110', 'Module Title': 'Organic Chemistry I', 'Module Credits': '3'}, {'Module Code': 'CHEM2111', 'Module Title': 'Fundamentals of Organic Chemistry', 'Module Credits': '3'}]}]}, {'University': 'Arizona State University', 'Total Mappable': 1, 'Country': 'USA', 'Modules': [{'Module': 'CM1121', 'Title': 'Organic Chemistry 1', 'Credits': '4', 'Partner Modules': [{'Module Code': 'CHM231', 'Module Title': 'ELEMENTARY ORGANIC CHEMISTRY', 'Module Credits': '3'}]}]}]",
+    "[{'University': 'Hong Kong University of Science & Technology', 'Total Mappable': 1, 'Country': 'Hong Kong', 'Modules': [{'Module': 'CM1121', 'Title': 'Organic Chemistry 1', 'Credits': '4', 'Partner Modules': [{'Module Code': 'CHEM2110', 'Module Title': 'Organic Chemistry I', 'Module Credits': '3'}, {'Module Code': 'CHEM2111', 'Module Title': 'Fundamentals of Organic Chemistry', 'Module Credits': '3'}]}]}, {'University': 'Arizona State University', 'Total Mappable': 1, 'Country': 'USA', 'Modules': [{'Module': 'CM1121', 'Title': 'Organic Chemistry 1', 'Credits': '4', 'Partner Modules': [{'Module Code': 'CHM231', 'Module Title': 'ELEMENTARY ORGANIC CHEMISTRY', 'Module Credits': '3'}]}]}]"
+]
+        return Response(data, status=status.HTTP_200_OK)
+
 class UniversityView(generics.ListAPIView):
     serializer_class = UniversitySerializer
 
