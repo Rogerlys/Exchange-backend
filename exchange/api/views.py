@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework import status, generics
-from .models import Module, University
+from .models import Module, University, ModulePair
 import json
 
 # Create your views here.
@@ -75,5 +75,21 @@ class UpdateModel(APIView):
                     model.partner_information = entries.get('Link')
                     model.partner_country = countries
                     model.save()
+        
+        with open('api/data/data.json', 'r') as f:
+            my_json_obj = json.load(f)
+        
+        for mapping in my_json_obj.values():
+            pair = ModulePair.objects.filter(nus_module_code = mapping.get('NUS Module 1'))
+            
+            model = ModulePair()
+            model.nus_module_code = mapping.get('NUS Module 1')
+            model.partner_university = mapping.get('Partner University')
+            uniList = University.objects.filter(partner_university = model.partner_university)
+            if len(uniList) > 0:
+                model.partner_country = uniList[0].partner_country
+            else:
+                model.partner_country = 'no data'
+            model.save()
 
         return Response({'Database updated'}, status=status.HTTP_200_OK)

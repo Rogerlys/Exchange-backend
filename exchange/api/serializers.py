@@ -10,3 +10,8 @@ class UniversitySerializer(serializers.ModelSerializer):
     class Meta:
         model = University
         fields = ('partner_university', 'partner_information', 'partner_country')
+
+class ModulePairSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Module
+        fields = ('nus_module_code', 'partner_university', 'partner_country')
