@@ -25,8 +25,9 @@ SECRET_KEY = 'django-insecure-@(kzmsu+#nu4a#i&y)(b#ivq_=-rz1srshvlaok_6+f1y#t9pe
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
+CORS_ORIGIN_ALLOW_ALL=True
 
 # Application definition
 
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api.apps.ApiConfig',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'exchange.urls'
@@ -85,7 +88,7 @@ DATABASES = {
 
         'USER': 'postgres',
 
-        'PASSWORD': 'Pigcle234',
+        'PASSWORD': '',
 
         'HOST': 'localhost',
 
@@ -143,5 +146,6 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
-    ]
+    ],
+    'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata'
 }
