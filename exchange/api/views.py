@@ -9,6 +9,7 @@ from .models import Module, University, ModulePair
 import json
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 
 # Create your views here.
 class ModuleView(APIView):
@@ -95,6 +96,9 @@ class UpdateModel(APIView):
             model = ModulePair()
             model.nus_module_code = mapping.get('NUS Module 1')
             model.partner_university = mapping.get('Partner University')
+            model.partner_module_code = mapping.get('PU Module 1')
+            model.partner_module_credit = mapping.get('PU Mod1 Credits')
+            model.nus_module_title = mapping.get('NUS Module 1 Title')
             uniList = University.objects.filter(partner_university = model.partner_university)
             if len(uniList) > 0:
                 model.partner_country = uniList[0].partner_country
@@ -113,5 +117,19 @@ def getUniMatched(request, *args, **kwargs):
         modules = infomation['modules']
         for mod in modules:
             partnerUnis = ModulePair.objects.filter(nus_module_code = mod)
-            print(partnerUnis)
-    return HttpResponse("Hello, world")
+            for pu in partnerUnis:
+                try:  # If this fails it means the uni has not been installed in results
+                    result[pu.partner_university]['Total Mappable'] += 1
+                except KeyError as err:
+                    result[pu.partner_university] = {"University": pu.partner_university,
+                                  "Total Mappable": 1,
+                                  "Country": pu.partner_country,
+                                  "Modules": []}
+                finally:
+                    item = {"Module": mod,
+                            "Title": pu.nus_module_code,
+                            "Credits": pu.partner_module_credit,
+                            "Partner Modules": pu.partner_module_code}
+
+                    result[pu.partner_university]["Modules"].append(item)
+    return JsonResponse(result)
