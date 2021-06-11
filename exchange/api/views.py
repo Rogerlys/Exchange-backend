@@ -7,6 +7,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework import status, generics
 from .models import Module, University, ModulePair
 import json
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 class ModuleView(APIView):
@@ -97,7 +99,19 @@ class UpdateModel(APIView):
             if len(uniList) > 0:
                 model.partner_country = uniList[0].partner_country
             else:
-                model.partner_country = 'no data'
+                model.partner_country = 'Singapore'
             model.save()
 
         return Response({'Database updated'}, status=status.HTTP_200_OK)
+
+@csrf_exempt
+def getUniMatched(request, *args, **kwargs):
+    result = {}
+    if request.method == 'POST':
+        json_body = json.loads(request.body.decode("utf-8"))
+        infomation = json_body["information"]
+        modules = infomation['modules']
+        for mod in modules:
+            partnerUnis = ModulePair.objects.filter(nus_module_code = mod)
+            print(partnerUnis)
+    return HttpResponse("Hello, world")
