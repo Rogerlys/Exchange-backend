@@ -89,10 +89,8 @@ class UpdateModel(APIView):
         
         with open('api/data/data.json', 'r') as f:
             my_json_obj = json.load(f)
-        
+        ModulePair.objects.all().delete()
         for mapping in my_json_obj.values():
-            pair = ModulePair.objects.filter(nus_module_code = mapping.get('NUS Module 1'))
-            
             model = ModulePair()
             model.nus_module_code = mapping.get('NUS Module 1')
             model.partner_university = mapping.get('Partner University')
