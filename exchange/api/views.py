@@ -135,6 +135,14 @@ def getUniMatched(request, *args, **kwargs):
                                   "Country": pu.partner_country,
                                   "Modules": []}
                 finally:
+                    mappings = result[pu.partner_university]["Modules"]
+                    hasModule = False
+                    for item in mappings:
+                        if item["Module"] == mod:
+                            hasModule = True
+                            break
+                    if hasModule:
+                        result[pu.partner_university]["Total Mappable"] -= 1
                     item = {"Module": mod,
                             "Title": pu.nus_module_title,
                             "Credits": pu.partner_module_credit,
