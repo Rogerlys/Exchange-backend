@@ -4,6 +4,7 @@ from django.db import models
 class Module(models.Model):
     nus_module_code = models.CharField(max_length=10, unique=True)
     nus_module_title = models.CharField(max_length=50)
+    nus_module_faculty = models.CharField(max_length=50)
     nus_module_credit = models.FloatField(null=False)
 
 class ModulePair(models.Model):

@@ -1,3 +1,4 @@
+from django.db.models.fields import NullBooleanField
 from django.db.models.query import QuerySet
 from .serializers import ModuleSerializer, UniversitySerializer
 from django.shortcuts import render
@@ -67,12 +68,22 @@ class UpdateModel(APIView):
 
         for mapping in my_json_obj.values():
             module = Module.objects.filter(nus_module_code = mapping.get('NUS Module 1'))
-            if not module.exists():
-                model = Module()
-                model.nus_module_code = mapping.get('NUS Module 1')
-                model.nus_module_title = mapping.get('NUS Module 1 Title')
-                model.nus_module_credit = int(float(mapping.get('NUS Mod1 Credits')))
-                model.save()
+            code = mapping.get('NUS Module 1')
+            title = mapping.get('NUS Module 1 Title')
+            faculty = mapping.get('Faculty')
+            credits = mapping.get('NUS Mod1 Credits')
+            if code != "" and title != "" and faculty != "" and credits != "":
+                if not module.exists():
+                    model = Module()
+                    model.nus_module_code = code
+                    model.nus_module_title = title
+                    model.nus_module_faculty = faculty
+                    model.nus_module_credit = int(float(credits))
+                    model.save()
+                else:
+                    module.update(nus_module_title = title)
+                    module.update(nus_module_faculty = faculty)
+                    module.update(nus_module_credit = int(float(credits)))
 
         with open('api/data/universitydata.json', 'r') as f:
             my_json_obj = json.load(f)
