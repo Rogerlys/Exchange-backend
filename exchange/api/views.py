@@ -136,9 +136,8 @@ def getUniMatched(request, *args, **kwargs):
                                   "Modules": []}
                 finally:
                     item = {"Module": mod,
-                            "Title": pu.nus_module_code,
+                            "Title": pu.nus_module_title,
                             "Credits": pu.partner_module_credit,
                             "Partner Modules": pu.partner_module_code}
-
                     result[pu.partner_university]["Modules"].append(item)
     return JsonResponse(result)
