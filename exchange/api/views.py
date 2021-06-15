@@ -106,6 +106,7 @@ class UpdateModel(APIView):
             model.nus_module_code = mapping.get('NUS Module 1')
             model.partner_university = mapping.get('Partner University')
             model.partner_module_code = mapping.get('PU Module 1')
+            model.partner_module_title = mapping.get('PU Module 1 Title')
             model.partner_module_credit = mapping.get('PU Mod1 Credits')
             model.nus_module_title = mapping.get('NUS Module 1 Title')
             uniList = University.objects.filter(partner_university = model.partner_university)
@@ -121,6 +122,7 @@ class UpdateModel(APIView):
 def getUniMatched(request, *args, **kwargs):
     result = {}
     if request.method == 'POST':
+        print(request.body)
         json_body = json.loads(request.body.decode("utf-8"))
         infomation = json_body["information"]
         modules = infomation['modules']
@@ -149,3 +151,38 @@ def getUniMatched(request, *args, **kwargs):
                             "Partner Modules": pu.partner_module_code}
                     result[pu.partner_university]["Modules"].append(item)
     return JsonResponse(result)
+
+@csrf_exempt
+def getModulePairing(request, *args, **kwargs):
+    result = {}
+    if request.method =='POST':
+        json_body = json.loads(request.body.decode("utf-8"))
+        information = json_body["information"]
+        university = information["university"][0]
+        faculty = information["faculty"][0]
+        filteredByUniversity = ModulePair.objects.filter(partner_university = university).order_by('nus_module_code')
+        result[university] = []
+        if faculty == "All":
+            for mod in filteredByUniversity:
+                item = {
+                    "NUS Module":mod.nus_module_code,
+                    "NUS Title":mod.nus_module_title,
+                    "Partner Module":mod.partner_module_code,
+                    "Partner Title":mod.partner_module_title
+                }
+                result[mod.partner_university].append(item)
+        else:
+            for mod in filteredByUniversity:
+                if Module.objects.filter(nus_module_code = mod.nus_module_code, nus_module_faculty = faculty):
+                    item = {
+                        "NUS Module":mod.nus_module_code,
+                        "NUS Title":mod.nus_module_title,
+                        "Partner Module":mod.partner_module_code,
+                        "Partner Title":mod.partner_module_title
+                    }
+                    result[mod.partner_university].append(item)
+        
+    if len(result[university]) > 0:
+        return JsonResponse(result)
+    else:
+        return JsonResponse({})
