@@ -12,6 +12,9 @@ from operator import itemgetter
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from api.nlpscript.main import wrapper
+from rest_framework.decorators import api_view, renderer_classes
+
 
 # Create your views here.
 class ModuleView(APIView):
@@ -100,13 +103,6 @@ class UpdateModel(APIView):
                     model.nus_module_faculty = school
                     model.nus_module_credit = float(information[module].get('moduleCredit'))
                     model.save()
-                
-#            model = Module()
-#            model.nus_module_code = mapping.get('NUS Module 1')
-#            model.nus_module_title = mapping.get('NUS Module 1 Title')
-#            model.nus_module_faculty = mapping.get('Faculty')
-#            model.nus_module_credit = mapping.get('NUS Mod1 Credits')
-#            model.save()
 
         with open('api/data/universitydata.json', 'r') as f:
             my_json_obj = json.load(f)
@@ -209,3 +205,21 @@ def getModulePairing(request, *args, **kwargs):
         return JsonResponse(result)
     else:
         return JsonResponse({})
+
+@csrf_exempt
+@api_view(['POST'])
+def getNLP(request, *args, **kwargs):
+    output = []
+    if request.method == 'POST':
+        json_body = json.loads(request.body.decode("utf-8"))
+        nusModule = json_body['nusModule']
+        other_description = json_body['otherModule']
+        module = Module.objects.filter(nus_module_code = nusModule)
+        if module.exists():
+            output.append(wrapper(module[0].nus_module_description, other_description))
+            return Response(output, status=status.HTTP_200_OK)
+        else:
+            return Response({}, status=status.HTTP_404_NOT_FOUND)
+
+
+        

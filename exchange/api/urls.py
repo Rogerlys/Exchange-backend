@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ModuleView, UpdateModel, UniversityView, ModulePage, getUniMatched, getModulePairing
+from .views import ModuleView, UpdateModel, UniversityView, ModulePage, getUniMatched, getModulePairing, getNLP
 
 urlpatterns = [
     path('modules', ModulePage.as_view()),
@@ -7,5 +7,6 @@ urlpatterns = [
     path('update-model', UpdateModel.as_view()),
     path('university-view', UniversityView.as_view()),
     path('university-matched', getUniMatched),
-    path('module-pairing', getModulePairing)
+    path('module-pairing', getModulePairing),
+    path('nlp', getNLP)
 ]
