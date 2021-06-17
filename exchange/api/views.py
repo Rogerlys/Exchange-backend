@@ -7,7 +7,8 @@ from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework import status, generics
 from .models import Module, University, ModulePair
-import json
+import json, requests, itertools
+from operator import itemgetter
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -66,24 +67,46 @@ class UpdateModel(APIView):
         with open('api/data/data.json', 'r') as f:
             my_json_obj = json.load(f)
 
-        for mapping in my_json_obj.values():
-            module = Module.objects.filter(nus_module_code = mapping.get('NUS Module 1'))
-            code = mapping.get('NUS Module 1')
-            title = mapping.get('NUS Module 1 Title')
-            faculty = mapping.get('Faculty')
-            credits = mapping.get('NUS Mod1 Credits')
-            if code != "" and title != "" and faculty != "" and credits != "":
-                if not module.exists():
+        Module.objects.all().delete()
+
+        # reformat mapping
+        mapping = {}
+        school = sorted(my_json_obj.values(), key=itemgetter('Faculty'))
+        for key, value in itertools.groupby(school, key=itemgetter('Faculty')):
+            mapping[key] = []
+            for i in value:
+                module = i.get('NUS Module 1')
+                if module not in mapping[key] and module != "":
+                    mapping[key].append(module)
+
+
+        r = requests.get('https://api.nusmods.com/v2/2020-2021/moduleInfo.json')
+        r = r.json()
+
+        #reformat api data
+        information = {}
+        for key, value in itertools.groupby(r, key=itemgetter('moduleCode')):
+            information[key] = {}
+            for i in value:
+                information[key] = i
+        
+        for school in mapping:
+            for module in mapping[school]:
+                if module in information.keys():
                     model = Module()
-                    model.nus_module_code = code
-                    model.nus_module_title = title
-                    model.nus_module_faculty = faculty
-                    model.nus_module_credit = int(float(credits))
+                    model.nus_module_code = information[module].get('moduleCode')
+                    model.nus_module_title = information[module].get('title')
+                    model.nus_module_description = information[module].get('description')
+                    model.nus_module_faculty = school
+                    model.nus_module_credit = float(information[module].get('moduleCredit'))
                     model.save()
-                else:
-                    module.update(nus_module_title = title)
-                    module.update(nus_module_faculty = faculty)
-                    module.update(nus_module_credit = int(float(credits)))
+                
+#            model = Module()
+#            model.nus_module_code = mapping.get('NUS Module 1')
+#            model.nus_module_title = mapping.get('NUS Module 1 Title')
+#            model.nus_module_faculty = mapping.get('Faculty')
+#            model.nus_module_credit = mapping.get('NUS Mod1 Credits')
+#            model.save()
 
         with open('api/data/universitydata.json', 'r') as f:
             my_json_obj = json.load(f)
