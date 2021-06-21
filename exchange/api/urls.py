@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ModuleView, UpdateModel, UniversityView, ModulePage, getUniMatched, getModulePairing, getPDF
+from .views import ModuleView, UpdateModel, UniversityView, ModulePage, getUniMatched, getModulePairing, getPDF, getNLP
 
 urlpatterns = [
     path('modules', ModulePage.as_view()),
@@ -9,4 +9,5 @@ urlpatterns = [
     path('university-matched', getUniMatched),
     path('module-pairing', getModulePairing),
     path('PDF', getPDF),
+    path('nlp', getNLP),
 ]
