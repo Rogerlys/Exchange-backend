@@ -12,6 +12,7 @@ from operator import itemgetter
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from .pdf import getPdf
 
 # Create your views here.
 class ModuleView(APIView):
@@ -145,7 +146,6 @@ class UpdateModel(APIView):
 def getUniMatched(request, *args, **kwargs):
     result = {}
     if request.method == 'POST':
-        print(request.body)
         json_body = json.loads(request.body.decode("utf-8"))
         infomation = json_body["information"]
         modules = infomation['modules']
@@ -209,3 +209,11 @@ def getModulePairing(request, *args, **kwargs):
         return JsonResponse(result)
     else:
         return JsonResponse({})
+
+@csrf_exempt
+def getPDF(request, *args, **kwargs):
+    if request.method == "POST":
+        dest = getPdf.getPdfResult(request.body)
+        content = open(dest).read
+        return HttpResponse(content, content_type='application/pdf')
+    return JsonResponse({})
