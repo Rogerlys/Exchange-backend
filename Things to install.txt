@@ -1,1 +1,3 @@
+pip install -U scikit-learn scipy matplotlib
+pip install -U nltk
 pip install reportlab

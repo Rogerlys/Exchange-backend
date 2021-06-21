@@ -12,13 +12,10 @@ from operator import itemgetter
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-<<<<<<< HEAD
 from .pdf import getPdf
-=======
 from api.nlpscript.main import wrapper
 from rest_framework.decorators import api_view, renderer_classes
 
->>>>>>> ec2da9f31bb8c175f5a9d4d8887bcc9acfac5d64
 
 # Create your views here.
 class ModuleView(APIView):
