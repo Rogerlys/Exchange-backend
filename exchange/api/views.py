@@ -210,14 +210,12 @@ def getModulePairing(request, *args, **kwargs):
         return JsonResponse({})
 
 @csrf_exempt
-<<<<<<< HEAD
 def getPDF(request, *args, **kwargs):
     if request.method == "POST":
         dest = getPdf.getPdfResult(request.body)
         content = open(dest).read
         return HttpResponse(content, content_type='application/pdf')
     return JsonResponse({})
-=======
 @api_view(['POST'])
 def getNLP(request, *args, **kwargs):
     output = []
@@ -234,4 +232,3 @@ def getNLP(request, *args, **kwargs):
 
 
         
->>>>>>> ec2da9f31bb8c175f5a9d4d8887bcc9acfac5d64
