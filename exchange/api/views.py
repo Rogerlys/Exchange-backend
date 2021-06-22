@@ -81,8 +81,6 @@ class UpdateModel(APIView):
                 module = i.get('NUS Module 1')
                 if module not in mapping[key] and module != "":
                     mapping[key].append(module)
-
-
         r = requests.get('https://api.nusmods.com/v2/2020-2021/moduleInfo.json')
         r = r.json()
 
@@ -170,7 +168,6 @@ def getUniMatched(request, *args, **kwargs):
                     result[pu.partner_university]["Modules"].append(item)
    
     return JsonResponse(result)
-
 @csrf_exempt
 def getModulePairing(request, *args, **kwargs):
     result = {}
