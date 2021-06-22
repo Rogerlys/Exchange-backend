@@ -40,7 +40,6 @@ class ModuleView(APIView):
         return Response({'Bad Request': 'module code parameter not found in request'}, status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, format=None):
-        print(request.data)
         data = [
     "[{'University': 'Hong Kong University of Science & Technology', 'Total Mappable': 1, 'Country': 'Hong Kong', 'Modules': [{'Module': 'CM1121', 'Title': 'Organic Chemistry 1', 'Credits': '4', 'Partner Modules': [{'Module Code': 'CHEM2110', 'Module Title': 'Organic Chemistry I', 'Module Credits': '3'}, {'Module Code': 'CHEM2111', 'Module Title': 'Fundamentals of Organic Chemistry', 'Module Credits': '3'}]}]}, {'University': 'Arizona State University', 'Total Mappable': 1, 'Country': 'USA', 'Modules': [{'Module': 'CM1121', 'Title': 'Organic Chemistry 1', 'Credits': '4', 'Partner Modules': [{'Module Code': 'CHM231', 'Module Title': 'ELEMENTARY ORGANIC CHEMISTRY', 'Module Credits': '3'}]}]}]",
     "[{'University': 'Hong Kong University of Science & Technology', 'Total Mappable': 1, 'Country': 'Hong Kong', 'Modules': [{'Module': 'CM1121', 'Title': 'Organic Chemistry 1', 'Credits': '4', 'Partner Modules': [{'Module Code': 'CHEM2110', 'Module Title': 'Organic Chemistry I', 'Module Credits': '3'}, {'Module Code': 'CHEM2111', 'Module Title': 'Fundamentals of Organic Chemistry', 'Module Credits': '3'}]}]}, {'University': 'Arizona State University', 'Total Mappable': 1, 'Country': 'USA', 'Modules': [{'Module': 'CM1121', 'Title': 'Organic Chemistry 1', 'Credits': '4', 'Partner Modules': [{'Module Code': 'CHM231', 'Module Title': 'ELEMENTARY ORGANIC CHEMISTRY', 'Module Credits': '3'}]}]}]"
@@ -60,7 +59,7 @@ class UniversityView(generics.ListAPIView):
 class ModulePage(generics.ListCreateAPIView):
     serializer_class = ModuleSerializer
     def get_queryset(self):
-        queryset = Module.objects.all()
+        queryset = Module.objects.all().order_by("nus_module_code")
         return queryset
 
 class UpdateModel(APIView):
@@ -169,6 +168,7 @@ def getUniMatched(request, *args, **kwargs):
                             "Credits": pu.partner_module_credit,
                             "Partner Modules": pu.partner_module_code}
                     result[pu.partner_university]["Modules"].append(item)
+   
     return JsonResponse(result)
 
 @csrf_exempt
@@ -200,7 +200,6 @@ def getModulePairing(request, *args, **kwargs):
                         "Partner Title":mod.partner_module_title
                     }
                     result[mod.partner_university].append(item)
-        
     if len(result[university]) > 0:
         return JsonResponse(result)
     else:
