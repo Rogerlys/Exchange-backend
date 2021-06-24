@@ -11,6 +11,11 @@ class UniversitySerializer(serializers.ModelSerializer):
         model = University
         fields = ('partner_university', 'partner_information', 'partner_country')
 
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = University
+        fields = ('partner_country',)
+
 class ModulePairSerializer(serializers.ModelSerializer):
     class Meta:
         model = Module
