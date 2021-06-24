@@ -40,7 +40,7 @@ class ModulePage(generics.ListAPIView):
         context = super().get_renderer_context()
         context['indent'] = 4
         return context
-
+    #returns the list of nus modules(ordered)
     def get_queryset(self):
         queryset = Module.objects.all().order_by("nus_module_code")
         return queryset
@@ -87,7 +87,7 @@ class UpdateModel(APIView):
             information[key] = {}
             for i in value:
                 information[key] = i
-        
+        #Updates the list of nus modules that can be done on exchange
         for school in mapping:
             for module in mapping[school]:
                 if module in information.keys():
@@ -101,7 +101,7 @@ class UpdateModel(APIView):
 
         with open('api/data/universitydata.json', 'r') as f:
             my_json_obj = json.load(f)
-
+        #Updates the list of universities
         for countries in my_json_obj:
             for entries in my_json_obj[countries]:
                 university = University.objects.filter(partner_university = entries.get('University'))
@@ -112,6 +112,7 @@ class UpdateModel(APIView):
                     model.partner_country = countries
                     model.save()
         
+        #Updates a list of nus modules and the foreign modules that can be mapped
         with open('api/data/data.json', 'r') as f:
             my_json_obj = json.load(f)
         ModulePair.objects.all().delete()
@@ -165,6 +166,8 @@ def getUniMatched(request, *args, **kwargs):
                     result[pu.partner_university]["Modules"].append(item)
    
     return JsonResponse(result)
+#Takes in a list of nus modules and returns foreign unis and 
+#modules that matches the nus modules provided
 @csrf_exempt
 def getModulePairing(request, *args, **kwargs):
     result = {}
@@ -201,11 +204,13 @@ def getModulePairing(request, *args, **kwargs):
 
 @csrf_exempt
 def getPDF(request, *args, **kwargs):
+    #get the pdf that is generated using Rishabh code and returns it as a response
     if request.method == "POST":
         dest = getPdf.getPdfResult(request.body)
         content = open(dest).read
         return HttpResponse(content, content_type='application/pdf')
     return JsonResponse({})
+#This is the NLP end point
 @api_view(['POST'])
 def getNLP(request, *args, **kwargs):
     output = []
