@@ -1,6 +1,6 @@
 from django.db.models.fields import NullBooleanField
 from django.db.models.query import QuerySet
-from .serializers import ModuleSerializer, UniversitySerializer
+from .serializers import ModuleSerializer, UniversitySerializer, CountrySerializer
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -19,9 +19,8 @@ from rest_framework.decorators import api_view, renderer_classes
 
 
 # Create your views here.
-class ModuleView(APIView):
-    serializer_class = ModuleSerializer
-    lookup_url_kwarg = 'nus_module_code'
+class UniversityPage(generics.ListAPIView):
+    serializer_class = UniversitySerializer
     renderer_classes = [JSONRenderer]
 
     def get_renderer_context(self):
@@ -29,38 +28,34 @@ class ModuleView(APIView):
         context['indent'] = 4
         return context
 
-    def get(self, request, format='None'):
-        nus_module_code = request.GET.get(self.lookup_url_kwarg)
-        if nus_module_code != None:
-            module = Module.objects.filter(nus_module_code = nus_module_code)
-            if module.exists():
-                data = ModuleSerializer(module[0]).data
-                return Response(data, status=status.HTTP_200_OK)
-
-            return Response({'Module Not Found':'Invalid Module Code.'}, status=status.HTTP_404_NOT_FOUND)
-        return Response({'Bad Request': 'module code parameter not found in request'}, status.HTTP_400_BAD_REQUEST)
-
-    def post(self, request, format=None):
-        data = [
-    "[{'University': 'Hong Kong University of Science & Technology', 'Total Mappable': 1, 'Country': 'Hong Kong', 'Modules': [{'Module': 'CM1121', 'Title': 'Organic Chemistry 1', 'Credits': '4', 'Partner Modules': [{'Module Code': 'CHEM2110', 'Module Title': 'Organic Chemistry I', 'Module Credits': '3'}, {'Module Code': 'CHEM2111', 'Module Title': 'Fundamentals of Organic Chemistry', 'Module Credits': '3'}]}]}, {'University': 'Arizona State University', 'Total Mappable': 1, 'Country': 'USA', 'Modules': [{'Module': 'CM1121', 'Title': 'Organic Chemistry 1', 'Credits': '4', 'Partner Modules': [{'Module Code': 'CHM231', 'Module Title': 'ELEMENTARY ORGANIC CHEMISTRY', 'Module Credits': '3'}]}]}]",
-    "[{'University': 'Hong Kong University of Science & Technology', 'Total Mappable': 1, 'Country': 'Hong Kong', 'Modules': [{'Module': 'CM1121', 'Title': 'Organic Chemistry 1', 'Credits': '4', 'Partner Modules': [{'Module Code': 'CHEM2110', 'Module Title': 'Organic Chemistry I', 'Module Credits': '3'}, {'Module Code': 'CHEM2111', 'Module Title': 'Fundamentals of Organic Chemistry', 'Module Credits': '3'}]}]}, {'University': 'Arizona State University', 'Total Mappable': 1, 'Country': 'USA', 'Modules': [{'Module': 'CM1121', 'Title': 'Organic Chemistry 1', 'Credits': '4', 'Partner Modules': [{'Module Code': 'CHM231', 'Module Title': 'ELEMENTARY ORGANIC CHEMISTRY', 'Module Credits': '3'}]}]}]"
-]
-        return Response(data, status=status.HTTP_200_OK)
-
-class UniversityView(generics.ListAPIView):
-    serializer_class = UniversitySerializer
-
     def get_queryset(self):
-        queryset = University.objects.all()
-        name = self.request.query_params.get('name')
-        if name is not None:
-            queryset = queryset.filter(partner_university = name)
+        queryset = University.objects.all().order_by("partner_university")
         return queryset
-        
-class ModulePage(generics.ListCreateAPIView):
+
+class ModulePage(generics.ListAPIView):
     serializer_class = ModuleSerializer
+    renderer_classes = [JSONRenderer]
+
+    def get_renderer_context(self):
+        context = super().get_renderer_context()
+        context['indent'] = 4
+        return context
+
     def get_queryset(self):
         queryset = Module.objects.all().order_by("nus_module_code")
+        return queryset
+
+class CountryPage(generics.ListAPIView):
+    serializer_class = CountrySerializer
+    renderer_classes = [JSONRenderer]
+    
+    def get_renderer_context(self):
+        context = super().get_renderer_context()
+        context['indent'] = 4
+        return context
+
+    def get_queryset(self):
+        queryset = University.objects.all().order_by("partner_country").distinct("partner_country")
         return queryset
 
 class UpdateModel(APIView):
