@@ -174,8 +174,8 @@ def getModulePairing(request, *args, **kwargs):
     if request.method =='POST':
         json_body = json.loads(request.body.decode("utf-8"))
         information = json_body["information"]
-        university = information["university"][0]
-        faculty = information["faculty"][0]
+        university = information["university"]
+        faculty = information["faculty"]
         filteredByUniversity = ModulePair.objects.filter(partner_university = university).order_by('nus_module_code')
         result[university] = []
         if faculty == "All":
@@ -210,6 +210,7 @@ def getPDF(request, *args, **kwargs):
         content = open(dest).read
         return HttpResponse(content, content_type='application/pdf')
     return JsonResponse({})
+    
 #This is the NLP end point
 @api_view(['POST'])
 def getNLP(request, *args, **kwargs):
