@@ -1,0 +1,9 @@
+pip install -U scikit-learn scipy matplotlib
+pip install -U nltk
+pip install reportlab
+pip install Django
+pip install django-cors-headers
+pip install djangorestframework
+pip install psycopg2
+pip install requests
+pip install pdfrw
