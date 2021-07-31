@@ -1,3 +1,4 @@
+from django.db import models
 from django.db.models.fields import NullBooleanField
 from django.db.models.query import QuerySet
 from .serializers import ModuleSerializer, UniversitySerializer, CountrySerializer
@@ -140,8 +141,12 @@ def getUniMatched(request, *args, **kwargs):
         json_body = json.loads(request.body.decode("utf-8"))
         infomation = json_body["information"]
         modules = infomation['modules']
+        country = infomation['countryFilter']
         for mod in modules:
-            partnerUnis = ModulePair.objects.filter(nus_module_code = mod)
+            if country != "All countries":
+                partnerUnis = ModulePair.objects.filter(nus_module_code = mod, partner_country = country)
+            else:
+                partnerUnis = ModulePair.objects.filter(nus_module_code = mod)
             for pu in partnerUnis:
                 try:  # If this fails it means the uni has not been installed in results
                     result[pu.partner_university]['Total Mappable'] += 1
