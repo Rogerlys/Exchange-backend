@@ -17,6 +17,7 @@ from django.http import JsonResponse
 from .pdf import getPdf
 from api.nlpscript.main import wrapper
 from rest_framework.decorators import api_view, renderer_classes
+import os
 
 
 # Create your views here.
@@ -249,6 +250,7 @@ def getPDF(request, *args, **kwargs):
     if request.method == "POST":
         dest = getPdf.getPdfResult(request.body)
         content = open(dest).read
+        os.remove(dest)
         return HttpResponse(content, content_type='application/pdf')
     return JsonResponse({})
     
