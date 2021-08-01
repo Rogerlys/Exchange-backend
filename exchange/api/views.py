@@ -133,6 +133,39 @@ class UpdateModel(APIView):
             model.save()
 
         return Response({'Database updated'}, status=status.HTTP_200_OK)
+@csrf_exempt
+def getSingleUniMatched(request, *args, **kwargs):
+    result = {}
+    if request.method == 'POST':
+        json_body = json.loads(request.body.decode("utf-8"))
+        information = json_body["information"]
+        modules = information['modules']
+        university = information["university"]
+        partner_university = ModulePair.objects.filter(partner_university = university)
+        for pu in partner_university:
+            if pu.nus_module_code in modules:
+                try:
+                    result[pu.partner_university]['Total Mappable'] += 1
+                except KeyError as err:
+                    result[pu.partner_university] = {"University": pu.partner_university,
+                                    "Total Mappable": 1,
+                                    "Country": pu.partner_country,
+                                    "Modules": []}
+                finally:
+                    mappings = result[pu.partner_university]["Modules"]
+                    hasModule = False
+                    for item in mappings:
+                        if item["Module"] == pu.nus_module_code:
+                            hasModule = True
+                            break
+                        if hasModule:
+                            result[pu.partner_university]["Total Mappable"] -= 1
+                    item = {"Module": pu.nus_module_code,
+                            "Title": pu.nus_module_title,
+                            "Credits": pu.partner_module_credit,
+                            "Partner Modules": pu.partner_module_code}
+                    result[pu.partner_university]["Modules"].append(item)
+    return JsonResponse(result)
 
 @csrf_exempt
 def getUniMatched(request, *args, **kwargs):
@@ -169,7 +202,6 @@ def getUniMatched(request, *args, **kwargs):
                             "Credits": pu.partner_module_credit,
                             "Partner Modules": pu.partner_module_code}
                     result[pu.partner_university]["Modules"].append(item)
-   
     return JsonResponse(result)
 #Takes in a list of nus modules and returns foreign unis and 
 #modules that matches the nus modules provided

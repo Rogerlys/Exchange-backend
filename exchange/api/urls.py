@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import UpdateModel, UniversityPage, ModulePage, CountryPage, getUniMatched, getModulePairing, getPDF, getNLP
+from .views import UpdateModel, UniversityPage, ModulePage, CountryPage, getUniMatched, getModulePairing, getPDF, getNLP, getSingleUniMatched
 
 urlpatterns = [
     #returns a list of all nus modules in the database
@@ -14,6 +14,7 @@ urlpatterns = [
     path('university-matched', getUniMatched),
     #Takes in a university and faculty and show the mappable mods of the university
     path('module-pairing', getModulePairing),
+    path('single-uni-matched', getSingleUniMatched),
     #Generates the pdf
     path('PDF', getPDF),
     #NLP end point
