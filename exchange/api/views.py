@@ -160,9 +160,11 @@ def getSingleUniMatched(request, *args, **kwargs):
                             break
                         if hasModule:
                             result[pu.partner_university]["Total Mappable"] -= 1
-                    item = {"Module": pu.nus_module_code,
+                    item = { "Module": pu.nus_module_code,
                             "Title": pu.nus_module_title,
-                            "Credits": pu.partner_module_credit,
+                            "NUS Credits": Module.objects.get(nus_module_code = pu.nus_module_code).nus_module_credit,
+                            "Partner Title": pu.partner_module_title,
+                            "Partner Credits": pu.partner_module_credit,
                             "Partner Modules": pu.partner_module_code}
                     result[pu.partner_university]["Modules"].append(item)
     return JsonResponse(result)
@@ -197,9 +199,11 @@ def getUniMatched(request, *args, **kwargs):
                             break
                     if hasModule:
                         result[pu.partner_university]["Total Mappable"] -= 1
-                    item = {"Module": mod,
+                    item = {"Module": pu.nus_module_code,
                             "Title": pu.nus_module_title,
-                            "Credits": pu.partner_module_credit,
+                            "NUS Credits": Module.objects.get(nus_module_code = pu.nus_module_code).nus_module_credit,
+                            "Partner Title": pu.partner_module_title,
+                            "Partner Credits": pu.partner_module_credit,
                             "Partner Modules": pu.partner_module_code}
                     result[pu.partner_university]["Modules"].append(item)
     return JsonResponse(result)
