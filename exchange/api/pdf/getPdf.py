@@ -103,6 +103,4 @@ def getPdfResult(data):
     input_pdf_path = dirname + "/form.pdf"
     output_pdf_path = dirname + "/" + applicantInfo["name"].strip() + " " + applicantInfo["uni"]["university"].strip() + ".pdf"
     fill_pdf(input_pdf_path, output_pdf_path, form_data)
-
-    dest = dirname + applicantInfo["name"].strip() + " " + applicantInfo["uni"]["university"].strip() + ".pdf"
-    return dest
+    return output_pdf_path
