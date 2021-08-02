@@ -18,6 +18,10 @@ from .pdf import getPdf
 from api.nlpscript.main import wrapper
 from rest_framework.decorators import api_view, renderer_classes
 import os
+import io
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+from django.core.files.storage import FileSystemStorage
 
 
 # Create your views here.
@@ -246,10 +250,14 @@ def getModulePairing(request, *args, **kwargs):
 def getPDF(request, *args, **kwargs):
     #get the pdf that is generated using Rishabh code and returns it as a response
     if request.method == "POST":
+        fs = FileSystemStorage()
         dest = getPdf.getPdfResult(request.body)
-        content = open(dest).read
-        os.remove(dest)
-        return HttpResponse(content, content_type='application/pdf')
+        if fs.exists(dest):
+            with fs.open(dest) as pdf:
+                response = HttpResponse(pdf, content_type='application/pdf')
+                response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"'
+            os.remove(dest)
+            return response
     return JsonResponse({})
     
 #This is the NLP end point
