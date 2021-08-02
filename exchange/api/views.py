@@ -1,3 +1,4 @@
+from django.db import models
 from django.db.models.fields import NullBooleanField
 from django.db.models.query import QuerySet
 from .serializers import ModuleSerializer, UniversitySerializer, CountrySerializer
@@ -78,6 +79,7 @@ class UpdateModel(APIView):
                 module = i.get('NUS Module 1')
                 if module not in mapping[key] and module != "":
                     mapping[key].append(module)
+
         r = requests.get('https://api.nusmods.com/v2/2020-2021/moduleInfo.json')
         r = r.json()
 
@@ -117,19 +119,21 @@ class UpdateModel(APIView):
             my_json_obj = json.load(f)
         ModulePair.objects.all().delete()
         for mapping in my_json_obj.values():
-            model = ModulePair()
-            model.nus_module_code = mapping.get('NUS Module 1')
-            model.partner_university = mapping.get('Partner University')
-            model.partner_module_code = mapping.get('PU Module 1')
-            model.partner_module_title = mapping.get('PU Module 1 Title')
-            model.partner_module_credit = mapping.get('PU Mod1 Credits')
-            model.nus_module_title = mapping.get('NUS Module 1 Title')
-            uniList = University.objects.filter(partner_university = model.partner_university)
-            if len(uniList) > 0:
-                model.partner_country = uniList[0].partner_country
-            else:
-                model.partner_country = 'Singapore'
-            model.save()
+            if Module.objects.filter(nus_module_code = mapping.get('NUS Module 1')).exists():
+                model = ModulePair()
+                model.nus_module_code = mapping.get('NUS Module 1')
+                model.partner_university = mapping.get('Partner University')
+                model.partner_module_code = mapping.get('PU Module 1')
+                model.partner_module_title = mapping.get('PU Module 1 Title')
+                model.partner_module_credit = mapping.get('PU Mod1 Credits')
+                model.nus_module_title = Module.objects.get(nus_module_code = mapping.get('NUS Module 1')).nus_module_title
+                uniList = University.objects.filter(partner_university = model.partner_university)
+                print(model.nus_module_title)
+                if len(uniList) > 0:
+                    model.partner_country = uniList[0].partner_country
+                else:
+                    model.partner_country = 'Singapore'
+                model.save()
 
         return Response({'Database updated'}, status=status.HTTP_200_OK)
 
@@ -140,8 +144,12 @@ def getUniMatched(request, *args, **kwargs):
         json_body = json.loads(request.body.decode("utf-8"))
         infomation = json_body["information"]
         modules = infomation['modules']
+        country = infomation['countryFilter']
         for mod in modules:
-            partnerUnis = ModulePair.objects.filter(nus_module_code = mod)
+            if country != "All countries":
+                partnerUnis = ModulePair.objects.filter(nus_module_code = mod, partner_country = country)
+            else:
+                partnerUnis = ModulePair.objects.filter(nus_module_code = mod)
             for pu in partnerUnis:
                 try:  # If this fails it means the uni has not been installed in results
                     result[pu.partner_university]['Total Mappable'] += 1
