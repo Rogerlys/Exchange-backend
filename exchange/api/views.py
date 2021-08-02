@@ -128,12 +128,7 @@ class UpdateModel(APIView):
                 model.partner_module_title = mapping.get('PU Module 1 Title')
                 model.partner_module_credit = mapping.get('PU Mod1 Credits')
                 model.nus_module_title = Module.objects.get(nus_module_code = mapping.get('NUS Module 1')).nus_module_title
-                uniList = University.objects.filter(partner_university = model.partner_university)
-                print(model.nus_module_title)
-                if len(uniList) > 0:
-                    model.partner_country = uniList[0].partner_country
-                else:
-                    model.partner_country = 'Singapore'
+                model.partner_country = University.objects.get(partner_university = model.partner_university).partner_country
                 model.save()
 
         return Response({'Database updated'}, status=status.HTTP_200_OK)
