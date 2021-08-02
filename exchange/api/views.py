@@ -17,6 +17,7 @@ from django.http import JsonResponse
 from .pdf import getPdf
 from api.nlpscript.main import wrapper
 from rest_framework.decorators import api_view, renderer_classes
+import os
 
 
 # Create your views here.
@@ -136,6 +137,41 @@ class UpdateModel(APIView):
                 model.save()
 
         return Response({'Database updated'}, status=status.HTTP_200_OK)
+@csrf_exempt
+def getSingleUniMatched(request, *args, **kwargs):
+    result = {}
+    if request.method == 'POST':
+        json_body = json.loads(request.body.decode("utf-8"))
+        information = json_body["information"]
+        modules = information['modules']
+        university = information["university"]
+        partner_university = ModulePair.objects.filter(partner_university = university)
+        for pu in partner_university:
+            if pu.nus_module_code in modules:
+                try:
+                    result[pu.partner_university]['Total Mappable'] += 1
+                except KeyError as err:
+                    result[pu.partner_university] = {"University": pu.partner_university,
+                                    "Total Mappable": 1,
+                                    "Country": pu.partner_country,
+                                    "Modules": []}
+                finally:
+                    mappings = result[pu.partner_university]["Modules"]
+                    hasModule = False
+                    for item in mappings:
+                        if item["Module"] == pu.nus_module_code:
+                            hasModule = True
+                            break
+                        if hasModule:
+                            result[pu.partner_university]["Total Mappable"] -= 1
+                    item = { "Module": pu.nus_module_code,
+                            "Title": pu.nus_module_title,
+                            "NUS Credits": Module.objects.get(nus_module_code = pu.nus_module_code).nus_module_credit,
+                            "Partner Title": pu.partner_module_title,
+                            "Partner Credits": pu.partner_module_credit,
+                            "Partner Modules": pu.partner_module_code}
+                    result[pu.partner_university]["Modules"].append(item)
+    return JsonResponse(result)
 
 @csrf_exempt
 def getUniMatched(request, *args, **kwargs):
@@ -167,12 +203,13 @@ def getUniMatched(request, *args, **kwargs):
                             break
                     if hasModule:
                         result[pu.partner_university]["Total Mappable"] -= 1
-                    item = {"Module": mod,
+                    item = {"Module": pu.nus_module_code,
                             "Title": pu.nus_module_title,
-                            "Credits": pu.partner_module_credit,
+                            "NUS Credits": Module.objects.get(nus_module_code = pu.nus_module_code).nus_module_credit,
+                            "Partner Title": pu.partner_module_title,
+                            "Partner Credits": pu.partner_module_credit,
                             "Partner Modules": pu.partner_module_code}
                     result[pu.partner_university]["Modules"].append(item)
-   
     return JsonResponse(result)
 #Takes in a list of nus modules and returns foreign unis and 
 #modules that matches the nus modules provided
@@ -216,6 +253,7 @@ def getPDF(request, *args, **kwargs):
     if request.method == "POST":
         dest = getPdf.getPdfResult(request.body)
         content = open(dest).read
+        os.remove(dest)
         return HttpResponse(content, content_type='application/pdf')
     return JsonResponse({})
     
