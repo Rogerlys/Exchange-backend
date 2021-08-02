@@ -255,7 +255,7 @@ def getPDF(request, *args, **kwargs):
         if fs.exists(dest):
             with fs.open(dest) as pdf:
                 response = HttpResponse(pdf, content_type='application/pdf')
-                response['Content-Disposition'] = 'attachment; filename="mypdf.pdf"'
+                response['Content-Disposition'] = 'attachment; filename="ExchangeForm.pdf"'
             os.remove(dest)
             return response
     return JsonResponse({})
