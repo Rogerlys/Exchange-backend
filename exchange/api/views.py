@@ -109,16 +109,15 @@ class UpdateModel(APIView):
         with open('api/data/universitydata.json', 'r') as f:
             my_json_obj = json.load(f)
         #Updates the list of universities
-        University.objects.all().delete()
         for countries in my_json_obj:
             for entries in my_json_obj[countries]:
                 university = University.objects.filter(partner_university = entries.get('University'))
-                
-                model = University()
-                model.partner_university = entries.get('University')
-                model.partner_information = entries.get('Link')
-                model.partner_country = countries
-                model.save()
+                if not university.exists():
+                    model = University()
+                    model.partner_university = entries.get('University')
+                    model.partner_information = entries.get('Link')
+                    model.partner_country = countries
+                    model.save()
         
         #Updates a list of nus modules and the foreign modules that can be mapped
         with open('api/data/data.json', 'r') as f:

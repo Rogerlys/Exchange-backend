@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-@(kzmsu+#nu4a#i&y)(b#ivq_=-rz1srshvlaok_6+f1y#t9pe
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["128.199.235.89"]
+ALLOWED_HOSTS = ["*"]
 
 CORS_ORIGIN_ALLOW_ALL=True
 
@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'exchange.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-if DEBUG:
+if not DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
