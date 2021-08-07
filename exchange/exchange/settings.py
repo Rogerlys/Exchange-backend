@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'exchange.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-if not DEBUG:
+if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -99,13 +99,9 @@ else:
 
             'USER': 'postgres',
 
-            'PASSWORD': '',
+            'PASSWORD': 'Pigcle234',
 
-<<<<<<< HEAD
-        'PASSWORD': 'Pigcle234',
-=======
             'HOST': 'localhost',
->>>>>>> 1fb3b597940cb173f7b5ba94414e9972c93c3732
 
             'PORT': '5432',
 
