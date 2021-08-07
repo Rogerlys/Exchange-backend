@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-@(kzmsu+#nu4a#i&y)(b#ivq_=-rz1srshvlaok_6+f1y#t9pe
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["128.199.235.89"]
 
 CORS_ORIGIN_ALLOW_ALL=True
 
@@ -88,7 +88,7 @@ DATABASES = {
 
         'USER': 'postgres',
 
-        'PASSWORD': 'Pigcle234',
+        'PASSWORD': 'admin',
 
         'HOST': 'localhost',
 
@@ -149,3 +149,5 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata'
 }
+
+
