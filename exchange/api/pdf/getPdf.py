@@ -8,6 +8,7 @@ ANNOT_RECT_KEY = '/Rect'
 SUBTYPE_KEY = '/Subtype'
 WIDGET_SUBTYPE_KEY = '/Widget'
 form_data = {}
+
 # ----------------- JSON DATA  -----------------
 def updateNusCodeIntoPdf(input, i):
     global form_data
@@ -39,31 +40,33 @@ def updatePUCreditIntoPdf(input, i):
     formEntry = 'Credits' + str(i)
     form_data[formEntry] = input
 
-def parsePartnerModule(partnerModules, i):
-    firstPartnerModule = partnerModules[0]
-    if firstPartnerModule:
-        updatePUCodeIntoPdf(firstPartnerModule['partnerModuleCode'], i)
-        updatePUCreditIntoPdf(firstPartnerModule['partnerModuleCredit'], i)
-        updatePUNameIntoPdf(firstPartnerModule['partnerModuleTitle'], i)
+def parsePartnerModule(partnerModule, i):
+    updatePUCodeIntoPdf(partnerModule['partnerModuleCode'], i)
+    updatePUCreditIntoPdf(partnerModule['partnerModuleCredit'], i)
+    updatePUNameIntoPdf(partnerModule['partnerModuleTitle'], i)
 
 def parseMappableModules(mappableModules):
     for i, mappableModule in enumerate(mappableModules):
         updateNusCodeIntoPdf(mappableModule['nusModuleCode'], i)
         updateNusNameIntoPdf(mappableModule['nusModuleTitle'], i)
         updateNusCreditIntoPdf(mappableModule['nusModuleCredit'], i)
-        parsePartnerModule(mappableModule['partnerModules'], i)
+        parsePartnerModule(mappableModule['partnerModule'], i)
 
-def updatePersonalInfo(name, matricNumber, major, partnerUni):
+def updatePersonalInfo(name, matricNumber, major, partnerUni, acadYear, semester, choice):
     global form_data
     form_data['Student Name'] = name
-    form_data['Student No'] = matricNumber
     form_data['Primary Major'] = major
     form_data['Partner University'] = partnerUni
+    form_data['Student No'] = matricNumber
+    form_data['Acad Year'] = acadYear
+    form_data['Semester'] = semester
+    form_data[choice] = u'\u2713' #check mark
 
 def populateFormData(applicantInfo):
     updatePersonalInfo(applicantInfo["name"], applicantInfo["primaryMajor"]
-    , applicantInfo["studentId"], applicantInfo["uni"]['university'])
-    parseMappableModules(applicantInfo["uni"]['nusModuleInfo'])
+    , applicantInfo["studentId"], applicantInfo["uni"]['university'], applicantInfo["acadYear"]
+    , applicantInfo["semester"], applicantInfo["choice"])
+    parseMappableModules(applicantInfo["uni"]['moduleInfo'])
 
 def fill_pdf(input_pdf_path, output_pdf_path, data_dict):
     template_pdf = pdfrw.PdfReader(input_pdf_path)
@@ -90,19 +93,16 @@ def getFormFields():
                     key = annotation[ANNOT_FIELD_KEY][1:-1]
 
 
-    # Get pdf form fields
-    # template_pdf = pdfrw.PdfReader(input_pdf_path)
+# Get pdf form fields
+# template_pdf = pdfrw.PdfReader(input_pdf_path)
 def getPdfResult(data):
+    global form_data
     applicantInfo = json.loads(data)
     populateFormData(applicantInfo)
 
     dirname = os.path.dirname(__file__)
     input_pdf_path = dirname + "/form.pdf"
-    output_pdf_path = dirname + applicantInfo["name"].strip() + " " + applicantInfo["uni"]["university"].strip() + ".pdf"
+    output_pdf_path = dirname + "/" + applicantInfo["name"].strip() + " " + applicantInfo["uni"]["university"].strip() + ".pdf"
     fill_pdf(input_pdf_path, output_pdf_path, form_data)
-
-    dest = dirname + applicantInfo["name"].strip() + " " + applicantInfo["uni"]["university"].strip() + ".pdf"
-    return dest
-    
-    
-    
+    form_data = {}
+    return output_pdf_path

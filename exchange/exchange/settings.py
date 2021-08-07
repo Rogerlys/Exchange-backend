@@ -77,26 +77,41 @@ WSGI_APPLICATION = 'exchange.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+if not DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'myproject',
+            'USER': 'myprojectuser',
+            'PASSWORD': 'password',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
+else:
+    DATABASES = {
 
-DATABASES = {
+        'default': {
 
-    'default': {
+            'ENGINE': 'django.db.backends.postgresql',
 
-        'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'exchange',
 
-        'NAME': 'exchange',
+            'USER': 'postgres',
 
-        'USER': 'postgres',
+            'PASSWORD': '',
 
+<<<<<<< HEAD
         'PASSWORD': 'Pigcle234',
+=======
+            'HOST': 'localhost',
+>>>>>>> 1fb3b597940cb173f7b5ba94414e9972c93c3732
 
-        'HOST': 'localhost',
+            'PORT': '5432',
 
-        'PORT': '5432',
+        }
 
     }
-
-}
 
 
 # Password validation
@@ -149,3 +164,4 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata'
 }
+
