@@ -85,7 +85,7 @@ if DEBUG:
             'USER': 'myprojectuser',
             'PASSWORD': 'password',
             'HOST': 'localhost',
-            'PORT': '',
+            'PORT': '8000',
         }
     }
 else:
