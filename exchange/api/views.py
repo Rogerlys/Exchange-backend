@@ -65,8 +65,8 @@ class CountryPage(generics.ListAPIView):
         return queryset
 
 class UpdateModel(APIView):
-    #permission_classes = [IsAuthenticated]
-    #serializer_class = ModuleSerializer
+    permission_classes = [IsAuthenticated]
+    serializer_class = ModuleSerializer
 
     def get(self, request, format='None'):
 
