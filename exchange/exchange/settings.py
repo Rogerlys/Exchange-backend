@@ -81,9 +81,9 @@ if not DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'exchange',
-            'USER': 'exchange',
-            'PASSWORD': 'exchange',
+            'NAME': 'myproject',
+            'USER': 'myprojectuser',
+            'PASSWORD': 'password',
             'HOST': 'localhost',
             'PORT': '',
         }
