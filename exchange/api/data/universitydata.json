@@ -1,7 +1,7 @@
 {
     "Australia": [
         {
-            "University": "Australian National University",
+            "University": "The Australian National University",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/au/sep_australia_anu.pdf?sfvrsn=61382e2d_6"
         },
         {
@@ -9,28 +9,32 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/au/sep_australia_monash.pdf?sfvrsn=c700a7cb_6"
         },
         {
-            "University": "University of Adelaide",
+            "University": "The University of Adelaide",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/au/sep_australia_adelaide.pdf?sfvrsn=bfc5307c_6"
         },
         {
-            "University": "University of Melbourne",
+            "University": "The University of Melbourne",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/au/sep_australia_melbourne.pdf?sfvrsn=2ef67210_6"
         },
         {
-            "University": "University of New South Wales",
+            "University": "The University of New South Wales",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/au/sep_australia_unsw.pdf?sfvrsn=c4775d44_6"
         },
         {
-            "University": "University of Queensland",
+            "University": "The University of Queensland",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/au/sep_australia_queensland.pdf?sfvrsn=415c7b46_6"
         },
         {
-            "University": "University of Sydney",
+            "University": "The University of Sydney",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/au/sep_australia_sydney.pdf?sfvrsn=ad6f2eff_6"
         },
         {
-            "University": "University of Western Australia",
+            "University": "The University of Western Australia",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/au/sep_australia_uwa.pdf?sfvrsn=b8c640d1_6"
+        },
+        {
+            "University": "LaTrobe University",
+            "Link": "http://www.latrobe.edu.au/"
         }
     ],
     "China": [
@@ -73,6 +77,14 @@
         {
             "University": "Zhejiang University",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/cn/sep_china_zhejiang.pdf?sfvrsn=5e535457_8"
+        },
+        {
+            "University": "Beihang University",
+            "Link": "https://ev.buaa.edu.cn/"
+        },
+        {
+            "University": "Renmin University of China",
+            "Link": "http://www.ruc.edu.cn/"
         }
     ],
     "Hong Kong": [
@@ -91,6 +103,10 @@
         {
             "University": "The Hong Kong Polytechnic University",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/hk/sep_hk_polyu.pdf?sfvrsn=132af009_6"
+        },
+        {
+            "University": "Hong Kong University of Science & Technology",
+            "Link": "http://www.ust.hk/"
         }
     ],
     "Japan": [
@@ -133,7 +149,7 @@
     ],
     "New Zealand": [
         {
-            "University": "University of Auckland",
+            "University": "The University of Auckland",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/nz/sep_new_zealand_auckland.pdf"
         },
         {
@@ -149,9 +165,20 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/nz/sep_new_zealand_wellington.pdf"
         }
     ],
+    "Singapore": [
+        {
+            "University": "Singapore Management University",
+            "Link": "https://www.smu.edu.sg/"
+        },
+        {
+            "University": "Nanyang Technological University",
+            "Link": "https://www.ntu.edu.sg/"
+        }
+
+    ],
     "South Korea": [
         {
-            "University": "Korea Advanced Institute of Science and Technology (KAIST)",
+            "University": "Korea Advanced Inst of Sci & Tech",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/kr/sep_korea_kaist.pdf"
         },
         {
@@ -163,12 +190,24 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/kr/sep_korea_snu.pdf"
         },
         {
-            "University": "Pohang University of Science and Technology",
+            "University": "Pohang University of Science & Technology",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/kr/sep_korea_postech.pdf"
         },
         {
             "University": "Yonsei University",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/kr/sep_korea_yonsei.pdf"
+        },
+        {
+            "University": "Hanyang University",
+            "Link": "http://www.hanyang.ac.kr/"
+        },
+        {
+            "University": "Sungkyunkwan University",
+            "Link": "http://www.skku.edu/"
+        },
+        {
+            "University": "Ewha Women's University,Seoul",
+            "Link": "http://www.ewha.ac.kr/"
         }
     ],
     "Taiwan": [
@@ -178,15 +217,23 @@
         },
         {
             "University": "National Taiwan University",
-            "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/tw/sep_taiwan_ncku.pdf"
-        },
-        {
-            "University": "National Tsing Hua University",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/tw/sep_taiwan_ntu.pdf"
         },
         {
-            "University": "National Yang Ming Chiao Tung University",
+            "University": "National Tsing Hua University",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/tw/sep_taiwan_nthu.pdf"
+        },
+        {
+            "University": "National Yang Ming Chiao Tung University",
+            "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/tw/sep_taiwan_nycu.pdf"
+        },
+        {
+            "University": "National Chiao Tung University",
+            "Link": "http://www.nctu.edu.tw/"
+        },
+        {
+            "University": "Chang Gung University",
+            "Link": "http://www.cgu.edu.tw/"
         }
     ],
     "Thailand": [
@@ -213,7 +260,7 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/ca/sep_canada_mcgill_university.pdf"
         },
         {
-            "University": "Queen's University, Kingston",
+            "University": "Queen's University at Kingston",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/ca/sep_canada_queens_university.pdf"
         },
         {
@@ -225,7 +272,7 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/ca/sep_canada_university_alberta.pdf"
         },
         {
-            "University": "University of British Columbia",
+            "University": "The University of British Columbia",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/ca/sep_canada_university_british_columbia.pdf"
         },
         {
@@ -253,7 +300,11 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/ca/sep_canada_university_waterloo.pdf"
         },
         {
-            "University": "University of Western Ontario",
+            "University": "Western University",
+            "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/ca/sep_canada_western_university.pdf"
+        },
+        {
+            "University": "Richard Ivey Sch of Biz, Univ of Western Ontario",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/ca/sep_canada_western_university.pdf"
         },
         {
@@ -263,7 +314,7 @@
     ],
     "Mexico": [
         {
-            "University": "Technologico de Monterrey",
+            "University": "Inst Tech y de Estudios Superiores de Monterrey",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/mx/sep_mexico_tec_de_monterrey.pdf"
         }
     ],
@@ -273,7 +324,7 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_arizona_state_university.pdf"
         },
         {
-            "University": "Boston College",
+            "University": "Boston College, Massachusetts",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_boston_college.pdf"
         },
         {
@@ -301,11 +352,11 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_clarkson_university.pdf"
         },
         {
-            "University": "Cornell University College of Agriculture & Life Sciences (CALS)",
+            "University": "Cornell Univ Coll of Agriculture & Life Sciences",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_cornell_university_cals.pdf"
         },
         {
-            "University": "Cornell University College of Human Ecology",
+            "University": "Cornell Univ Coll of Human Ecology",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_cornell_university_college_of_human_ecology.pdf"
         },
         {
@@ -313,11 +364,11 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_emory_university.pdf"
         },
         {
-            "University": "George Washington University",
+            "University": "The George Washington University",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_the_george_washington_university.pdf"
         },
         {
-            "University": "Georgetown University",
+            "University": "Georgetown University, Washington D.C.",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_georgetown_university.pdf"
         },
         {
@@ -357,11 +408,43 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_alaska_fairbanks.pdf"
         },
         {
-            "University": "University of Arizona",
+            "University": "The University of Arizona",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_arizona.pdf"
         },
         {
-            "University": "University of California (System-Wide)",
+            "University": "University of California, Riverside",
+            "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_california.pdf"
+        },
+        {
+            "University": "University of California, Los Angeles",
+            "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_california.pdf"
+        },
+        {
+            "University": "University of California, San Diego",
+            "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_california.pdf"
+        },
+        {
+            "University": "University of California, Santa Barbara",
+            "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_california.pdf"
+        },
+        {
+            "University": "University of California, Irvine",
+            "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_california.pdf"
+        },
+        {
+            "University": "University of California, Davis",
+            "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_california.pdf"
+        },
+        {
+            "University": "University of California, Merced",
+            "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_california.pdf"
+        },
+        {
+            "University": "University of California, Santa Cruz",
+            "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_california.pdf"
+        },
+        {
+            "University": "University of California",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_california.pdf"
         },
         {
@@ -381,7 +464,7 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_hawaii_at_manoa.pdf"
         },
         {
-            "University": "University of Illinois at Urbana-Champaign",
+            "University": "University of Illinois, Urbana-Champaign",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_illinois_urbana_champaign.pdf"
         },
         {
@@ -393,11 +476,11 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_miami.pdf"
         },
         {
-            "University": "University of Michigan",
+            "University": "University of Michigan, Ann Arbor",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_michigan.pdf"
         },
         {
-            "University": "University of North Carolina at Chapel Hill",
+            "University": "University of North Carolina, Chapel Hill",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_north_carolina_at_chapel_hill.pdf"
         },
         {
@@ -421,7 +504,7 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_southern_california.pdf"
         },
         {
-            "University": "University of Texas at Austin",
+            "University": "The University of Texas at Austin",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_the_university_of_texas_at_austin.pdf"
         },
         {
@@ -433,8 +516,48 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_washington_seattle.pdf"
         },
         {
-            "University": "University of Wisconsin - Madison",
+            "University": "University of Wisconsin-Madison",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/us/sep_usa_university_of_wisconsin_madison.pdf"
+        },
+        {
+            "University": "University of San Diego",
+            "Link": "http://www.sandiego.edu/"
+        },
+        {
+            "University": "Vanderbilt University",
+            "Link":  "http://www.vanderbilt.edu/"
+        },
+        {
+            "University": "Stanford University",
+            "Link": "http://www.stanford.edu/"
+        },
+        {
+            "University": "University of Minnesota",
+            "Link": "http://www.umn.edu/"
+        },
+        {
+            "University": "Johns Hopkins University",
+            "Link": "http://www.jhu.edu/"
+        },
+        {
+            "University": "Indiana University, Bloomington",
+            "Link": "http://www.indiana.edu/"
+        },
+        {
+            "University": "University of Georgia",
+            "Link": "http://www.uga.edu/"
+        },
+        {
+            "University": "Duke University",
+            "Link": "http://www.duke.edu/"
+        },
+        {
+            "University": "Columbia University",
+            "Link": "http://www.columbia.edu/"
+        },
+        {
+            "University": "Colgate University",
+            "Link": "http://www.colgate.edu/"
         }
     ],
     "Austria": [
@@ -479,6 +602,10 @@
         {
             "University": "University of Helsinki",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/fi/sep_finland_uni_helsinki.pdf"
+        },
+        {
+            "University": "Aalto University",
+            "Link": "https://www.aalto.fi"
         }
     ],
     "France": [
@@ -583,6 +710,18 @@
         {
             "University": "University of Ulm",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/de/sep_germany_uni_ulm.pdf"
+        },
+        {
+            "University": "University of Applied Sciences Esslingen",
+            "Link": "http://www.hs-esslingen.de/"
+        },
+        {
+            "University": "WHU - Otto Beisheim School of Management",
+            "Link": "http://www.whu-koblenz.de/"
+        },
+        {
+            "University": "University of Kaiserslautern, FRG",
+            "Link": "http://www.uni-kl.de/"
         }
     ],
     "Hungary": [
@@ -603,7 +742,7 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/ie/sep_ireland_tcd.pdf"
         },
         {
-            "University": "University College Cork",
+            "University": "University College Cork, Ireland",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/ie/sep_ireland_ucc.pdf"
         },
         {
@@ -621,7 +760,7 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/il/sep_israel_hebrew_university_jerusalem92a1f57b75474baeb4618a8fbbf1b6d6.pdf?sfvrsn=1806906b_2"
         },
         {
-            "University": "Interdisciplinary Center Herzliya",
+            "University": "Interdisciplinary Center Herzliya (IDC)",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/il/sep_israel_idc_herzliyac6b121e9b3f845a59dca6e5cdb15e0e9.pdf?sfvrsn=35d94516_2"
         }
     ],
@@ -629,6 +768,10 @@
         {
             "University": "University of Bologna",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/it/sep_italy_unibo.pdf"
+        },
+        {
+            "University": "University of Commerce 'Luigi Bocconi' Milan",
+            "Link": "http://www.unibocconi.eu/"
         }
     ],
     "Lithuania": [
@@ -647,11 +790,11 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/nl/sep_nl_tue.pdf"
         },
         {
-            "University": "University of Amsterdam (includes Amsterdam University College)",
+            "University": "University of Amsterdam",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/nl/sep_nl_uva.pdf"
         },
         {
-            "University": "Utrecht University (includes University College Utrecht and University Medical Center Utrecht)",
+            "University": "Utrecht University",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/nl/sep_nl_uu.pdf"
         }
     ],
@@ -663,6 +806,10 @@
         {
             "University": "University of Oslo",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/no/sep_norway_uni_oslo.pdf"
+        },
+        {
+            "University": "Norwegian School of Economics",
+            "Link": "http://www.nhh.no/"
         }
     ],
     "Poland": [
@@ -689,7 +836,12 @@
         {
             "University": "Universidad Autonoma De Madrid",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/es/sep_spain_universidad_autonoma_de_madrid.pdf"
+        },
+        {
+            "University": "Universitat Autonoma de Barcelona",
+            "Link": "http://www.uab.es/"
         }
+
     ],
     "Sweden": [
         {
@@ -697,7 +849,7 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/se/sep_sweden_chalmers_university_of_technology.pdf"
         },
         {
-            "University": "KTH - Royal Institute of Technology",
+            "University": "KTH Royal Institute of Technology",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/se/sep_sweden_kth_royal_institute_of_technology.pdf"
         },
         {
@@ -705,8 +857,12 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/se/sep_sweden_lund_university.pdf"
         },
         {
-            "University": "Stockholm University",
+            "University": "University of Stockholm",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/se/sep_sweden_stockholm_university.pdf"
+        },
+        {
+            "University": "University of Goteborg",
+            "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/se/sep_sweden_university_of_gothenburg.pdf"
         },
         {
             "University": "University of Gothenburg",
@@ -715,15 +871,23 @@
         {
             "University": "Uppsala University",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/se/sep_sweden_uppsala_university.pdf"
+        },
+        {
+            "University": "Linkoping University",
+            "Link": "http://www.liu.se/"
         }
     ],
     "Switzerland": [
         {
-            "University": "ETH Zurich (Swiss Federal Institute of Technology)",
+            "University": "ETH Zurich",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/ch/sep_switzerland_eth_zurich.pdf"
         },
         {
-            "University": "\u00c9cole Polytechnique F\u00e9d\u00e9rale de Lausanne (EPFL)",
+            "University": "Swiss Federal Institute of Technology Lausanne",
+            "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/ch/sep_switzerland_epfl.pdf"
+        },
+        {
+            "University": "Ecole Polytechnique Federale de Lausanne",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/ch/sep_switzerland_epfl.pdf"
         },
         {
@@ -747,6 +911,10 @@
         {
             "University": "Sabanci University",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/tr/sep_turkey_sabanci.pdf"
+        },
+        {
+            "University": "Bogazici University, Turkey",
+            "Link": "http://www.boun.edu.tr/"
         }
     ],
     "United Kingdom": [
@@ -775,7 +943,7 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/uk/sep_uk_edinburgh.pdf"
         },
         {
-            "University": "The University of Liverpool",
+            "University": "University of Liverpool",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/uk/sep_uk_liverpool.pdf"
         },
         {
@@ -791,7 +959,7 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/uk/sep_uk_sheffield.pdf"
         },
         {
-            "University": "The University of Warwick",
+            "University": "University of Warwick",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/uk/sep_uk_warwick.pdf"
         },
         {
@@ -799,7 +967,7 @@
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/uk/sep_uk_york.pdf"
         },
         {
-            "University": "University College London",
+            "University": "University College London, University of London",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/uk/sep_uk_ucl.pdf"
         },
         {
@@ -821,6 +989,22 @@
         {
             "University": "University of St Andrews",
             "Link": "https://nus.edu.sg/gro/docs/default-source/prog/sep/pu/uk/sep_uk_standrews.pdf"
+        },
+        {
+            "University": "London School of Economics & Political Science",
+            "Link": "http://www.lse.ac.uk/"
+        },
+        {
+            "University": "University of Southampton",
+            "Link": "http://www.southampton.ac.uk/"
+        },
+        {
+            "University": "University of Oxford",
+            "Link": "http://www.ox.ac.uk/"
+        },
+        {
+            "University": "University of Dundee",
+            "Link": "http://www.dundee.ac.uk/"
         }
     ]
 }

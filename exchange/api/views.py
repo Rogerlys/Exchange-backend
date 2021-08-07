@@ -17,6 +17,11 @@ from django.http import JsonResponse
 from .pdf import getPdf
 from api.nlpscript.main import wrapper
 from rest_framework.decorators import api_view, renderer_classes
+import os
+import io
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+from django.core.files.storage import FileSystemStorage
 
 
 # Create your views here.
@@ -79,6 +84,7 @@ class UpdateModel(APIView):
                 module = i.get('NUS Module 1')
                 if module not in mapping[key] and module != "":
                     mapping[key].append(module)
+
         r = requests.get('https://api.nusmods.com/v2/2020-2021/moduleInfo.json')
         r = r.json()
 
@@ -118,21 +124,53 @@ class UpdateModel(APIView):
             my_json_obj = json.load(f)
         ModulePair.objects.all().delete()
         for mapping in my_json_obj.values():
-            model = ModulePair()
-            model.nus_module_code = mapping.get('NUS Module 1')
-            model.partner_university = mapping.get('Partner University')
-            model.partner_module_code = mapping.get('PU Module 1')
-            model.partner_module_title = mapping.get('PU Module 1 Title')
-            model.partner_module_credit = mapping.get('PU Mod1 Credits')
-            model.nus_module_title = mapping.get('NUS Module 1 Title')
-            uniList = University.objects.filter(partner_university = model.partner_university)
-            if len(uniList) > 0:
-                model.partner_country = uniList[0].partner_country
-            else:
-                model.partner_country = 'Singapore'
-            model.save()
+            if Module.objects.filter(nus_module_code = mapping.get('NUS Module 1')).exists():
+                model = ModulePair()
+                model.nus_module_code = mapping.get('NUS Module 1')
+                model.partner_university = mapping.get('Partner University')
+                model.partner_module_code = mapping.get('PU Module 1')
+                model.partner_module_title = mapping.get('PU Module 1 Title')
+                model.partner_module_credit = mapping.get('PU Mod1 Credits')
+                model.nus_module_title = Module.objects.get(nus_module_code = mapping.get('NUS Module 1')).nus_module_title
+                model.partner_country = University.objects.get(partner_university = model.partner_university).partner_country
+                model.save()
 
         return Response({'Database updated'}, status=status.HTTP_200_OK)
+@csrf_exempt
+def getSingleUniMatched(request, *args, **kwargs):
+    result = {}
+    if request.method == 'POST':
+        json_body = json.loads(request.body.decode("utf-8"))
+        information = json_body["information"]
+        modules = information['modules']
+        university = information["university"]
+        partner_university = ModulePair.objects.filter(partner_university = university)
+        for pu in partner_university:
+            if pu.nus_module_code in modules:
+                try:
+                    result[pu.partner_university]['Total Mappable'] += 1
+                except KeyError as err:
+                    result[pu.partner_university] = {"University": pu.partner_university,
+                                    "Total Mappable": 1,
+                                    "Country": pu.partner_country,
+                                    "Modules": []}
+                finally:
+                    mappings = result[pu.partner_university]["Modules"]
+                    hasModule = False
+                    for item in mappings:
+                        if item["Module"] == pu.nus_module_code:
+                            hasModule = True
+                            break
+                        if hasModule:
+                            result[pu.partner_university]["Total Mappable"] -= 1
+                    item = { "Module": pu.nus_module_code,
+                            "Title": pu.nus_module_title,
+                            "NUS Credits": Module.objects.get(nus_module_code = pu.nus_module_code).nus_module_credit,
+                            "Partner Title": pu.partner_module_title,
+                            "Partner Credits": pu.partner_module_credit,
+                            "Partner Modules": pu.partner_module_code}
+                    result[pu.partner_university]["Modules"].append(item)
+    return JsonResponse(result)
 
 @csrf_exempt
 def getUniMatched(request, *args, **kwargs):
@@ -164,12 +202,13 @@ def getUniMatched(request, *args, **kwargs):
                             break
                     if hasModule:
                         result[pu.partner_university]["Total Mappable"] -= 1
-                    item = {"Module": mod,
+                    item = {"Module": pu.nus_module_code,
                             "Title": pu.nus_module_title,
-                            "Credits": pu.partner_module_credit,
+                            "NUS Credits": Module.objects.get(nus_module_code = pu.nus_module_code).nus_module_credit,
+                            "Partner Title": pu.partner_module_title,
+                            "Partner Credits": pu.partner_module_credit,
                             "Partner Modules": pu.partner_module_code}
                     result[pu.partner_university]["Modules"].append(item)
-   
     return JsonResponse(result)
 #Takes in a list of nus modules and returns foreign unis and 
 #modules that matches the nus modules provided
@@ -211,9 +250,14 @@ def getModulePairing(request, *args, **kwargs):
 def getPDF(request, *args, **kwargs):
     #get the pdf that is generated using Rishabh code and returns it as a response
     if request.method == "POST":
+        fs = FileSystemStorage()
         dest = getPdf.getPdfResult(request.body)
-        content = open(dest).read
-        return HttpResponse(content, content_type='application/pdf')
+        if fs.exists(dest):
+            with fs.open(dest) as pdf:
+                response = HttpResponse(pdf, content_type='application/pdf')
+                response['Content-Disposition'] = 'attachment; filename="ExchangeForm.pdf"'
+            os.remove(dest)
+            return response
     return JsonResponse({})
     
 #This is the NLP end point
