@@ -96,6 +96,7 @@ def getFormFields():
 # Get pdf form fields
 # template_pdf = pdfrw.PdfReader(input_pdf_path)
 def getPdfResult(data):
+    global form_data
     applicantInfo = json.loads(data)
     populateFormData(applicantInfo)
 
@@ -103,4 +104,5 @@ def getPdfResult(data):
     input_pdf_path = dirname + "/form.pdf"
     output_pdf_path = dirname + "/" + applicantInfo["name"].strip() + " " + applicantInfo["uni"]["university"].strip() + ".pdf"
     fill_pdf(input_pdf_path, output_pdf_path, form_data)
+    form_data = {}
     return output_pdf_path
