@@ -83,7 +83,7 @@ if not DEBUG:
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'exchange',
             'USER': 'postgres',
-            'PASSWORD': 'admin',
+            'PASSWORD': 'postgres',
             'HOST': 'localhost',
             'PORT': '',
         }
