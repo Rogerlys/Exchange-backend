@@ -109,7 +109,7 @@ class UpdateModel(APIView):
         with open('api/data/universitydata.json', 'r') as f:
             my_json_obj = json.load(f)
         #Updates the list of universities
-        university.objects.all().delete()
+        University.objects.all().delete()
         for countries in my_json_obj:
             for entries in my_json_obj[countries]:
                 university = University.objects.filter(partner_university = entries.get('University'))
