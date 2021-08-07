@@ -82,8 +82,8 @@ if not DEBUG:
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'exchange',
-            'USER': 'postgres',
-            'PASSWORD': 'postgres',
+            'USER': 'exchange',
+            'PASSWORD': 'exchange',
             'HOST': 'localhost',
             'PORT': '',
         }
@@ -160,5 +160,4 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_METADATA_CLASS': 'rest_framework.metadata.SimpleMetadata'
 }
-
 
