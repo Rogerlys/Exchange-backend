@@ -52,7 +52,7 @@ def parseMappableModules(mappableModules):
         updateNusCreditIntoPdf(mappableModule['nusModuleCredit'], i)
         parsePartnerModule(mappableModule['partnerModule'], i)
 
-def updatePersonalInfo(name, matricNumber, major, partnerUni, acadYear, semester, choice):
+def updatePersonalInfo(name, major, matricNumber, partnerUni, acadYear, semester, choice):
     global form_data
     form_data['Student Name'] = name
     form_data['Primary Major'] = major
